@@ -12,8 +12,8 @@ NaselenоMyasto::NaselenоMyasto(string ime, int naselenie, double byudzhet,
                        int procentVazrastni, double razstoqnieDoGrad,
                        string naiBlizakGrad, int broiLiniiBus)
     : ime(ime),                     // zapisva podadenoto ime v poleto ime
-      naselenie(naselenie),         // zapisva naselenieto
-      byudzhet(byudzhet),                 // zapisva byudzheta
+      naselenie(naselenie),         
+      byudzhet(byudzhet),                 
       procentVazrastni(procentVazrastni), // zapisva % vazrastni
       razstoqnieDoGrad(razstoqnieDoGrad), // zapisva razstoqnieto
       naiBlizakGrad(naiBlizakGrad),       // zapisva nai-blizkiq grad
