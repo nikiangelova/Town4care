@@ -2,11 +2,10 @@
 #include "GradMalak.h"
 using namespace std;
 
-// -------------------------------------------------------
-//  Konstruktor na GradMalak
-//  Izvikva konstruktora na NaselenоMyasto za obshtite danni,
-//  sled koeto inicializira specifichnite poleta.
-// -------------------------------------------------------
+
+
+//  Izvikva konstruktora na NaselenоMyasto za obshtite danni, sled koeto inicializira specifichnite poleta.
+
 GradMalak::GradMalak(string ime, int naselenie, double byudzhet,
            int procentVazrastni, double razstoqnieDoGrad,
            string naiBlizakGrad, int broiLiniiBus,
@@ -21,9 +20,9 @@ GradMalak::GradMalak(string ime, int naselenie, double byudzhet,
 bool GradMalak::imaObshtinaMetod() const { return imaObshtina; }
 bool GradMalak::imaBolnicaMetod()     const { return imaBolnica; }
 
-// -------------------------------------------------------
+
 //  pokazhiInfo — pokazva obshtoto + specifichnoto za malak grad
-// -------------------------------------------------------
+
 void GradMalak::pokazhiInfo() const {
     NaselenоMyasto::pokazhiInfo();   // obshtata informaciq ot bazoviq klas
 
