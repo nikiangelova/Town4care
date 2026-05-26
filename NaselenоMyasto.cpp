@@ -1,13 +1,13 @@
-#include <iostream>      // za cout
-#include <iomanip>       // za setw (podravnqvane na tekst v tablica)
-#include "NaselenоMyasto.h"  // vklyuchi zaglavniya fail na klasa
+#include <iostream>      
+#include <iomanip>       // za setw 
+#include "NaselenоMyasto.h"  // vklyuchi zaglavniya file na clasa
 using namespace std;
 
-// -------------------------------------------------------
+
 //  Konstruktor na NaselenоMyasto
 //  Inicializira vsichki poleta chrez spisak myasto inicializatori (:)
-//  Sintaksis:  pole(stoqnost), pole(stoqnost), ...
-// -------------------------------------------------------
+//  Sintaksis:  pole(stoinost), pole(stoinost), ...
+
 NaselenоMyasto::NaselenоMyasto(string ime, int naselenie, double byudzhet,
                        int procentVazrastni, double razstoqnieDoGrad,
                        string naiBlizakGrad, int broiLiniiBus)
@@ -17,11 +17,11 @@ NaselenоMyasto::NaselenоMyasto(string ime, int naselenie, double byudzhet,
       procentVazrastni(procentVazrastni), // zapisva % vazrastni
       razstoqnieDoGrad(razstoqnieDoGrad), // zapisva razstoqnieto
       naiBlizakGrad(naiBlizakGrad),       // zapisva nai-blizkiq grad
-      broiLiniiBus(broiLiniiBus)    // zapisva broa avtobusni linii
-{}  // tyaloto na konstruktora e prazno — vsichko e v spiska
+      broiLiniiBus(broiLiniiBus)    // zapisva broi avtobusni linii
+{}  // tyaloto na konstruktora e prazno - vsichko e v spisuka
 
 // -------------------------------------------------------
-//  Getters — prosto vrashtat stoinostite na polyata
+//  Getters — prosto vrashtat stoinostite na poleta
 // -------------------------------------------------------
 string NaselenоMyasto::vzemIme()           const { return ime; }
 int    NaselenоMyasto::vzemNaselenie()     const { return naselenie; }
@@ -31,22 +31,22 @@ double NaselenоMyasto::vzemRazstoqnie() const { return razstoqnieDoGrad; }
 string NaselenоMyasto::vzemNaiBlizakGrad()    const { return naiBlizakGrad; }
 int    NaselenоMyasto::vzemBroiLiniiBus()  const { return broiLiniiBus; }
 
-// -------------------------------------------------------
+
 //  Riskova zona — vyarno ako poveche ot 40% sa vazrastni (>65g.)
 //  Takiva mesta imat po-visoka nuzda ot obshtestven transport.
-// -------------------------------------------------------
+
 bool NaselenоMyasto::eRiskovaZona() const {
     return procentVazrastni > 40;   // > 40% -> riskova zona
 }
 
-// -------------------------------------------------------
+
 //  Preporachitelen broi avtobusni linii
 //  Logika:
 //    - Bazovo: 1 liniya za vsyako myasto
-//    - +1 ako e riskova zona (mnogo vazrastni)
+//    - +1 ako e riskova zona (mnogo vuzrastni)
 //    - +1 ako e otdalecheno (> 30 km)
 //    - +1 ako e mnogo otdalecheno (> 60 km) — vtora dobavka
-// -------------------------------------------------------
+
 int NaselenоMyasto::preporachaniLinii() const {
     int preporachani = 1;                    // minimum 1 liniya
 
@@ -57,18 +57,18 @@ int NaselenоMyasto::preporachaniLinii() const {
     return preporachani;   // vrasha obshtiya preporachan broi
 }
 
-// -------------------------------------------------------
+
 //  Nuzhdae se ot poveche transport?
 //  Sravnqva tekushtite linii myasto preporachanite.
-// -------------------------------------------------------
+
 bool NaselenоMyasto::nuzhdaeSePoveche() const {
     return broiLiniiBus < preporachaniLinii();   // istina ako ima nedostig
 }
 
-// -------------------------------------------------------
+
 //  Detailen otchet za mobilnostta
-//  Pechat statys i finansova preporacka za konkretnoto myasto.
-// -------------------------------------------------------
+//  Pechat status i finansova preporucka za konkretnoto myasto.
+
 void NaselenоMyasto::otchetMobilnost() const {
     int preporachani = preporachaniLinii();       // preporachan broi linii
     int nedostig     = preporachani - broiLiniiBus; // kolko linii lipsvat
@@ -112,10 +112,10 @@ void NaselenоMyasto::otchetMobilnost() const {
     cout << "  ----------------------------" << endl;
 }
 
-// -------------------------------------------------------
+
 //  pokazhiInfo — pokazva obshtata informaciya za naselenoto myasto
 //  Izvikva se i ot Selo::pokazhiInfo() i GradMalak::pokazhiInfo()
-// -------------------------------------------------------
+
 void NaselenоMyasto::pokazhiInfo() const {
     cout << "\n  Tip         : " << vzemTip() << endl;    // vika virtualniq metod
     cout << "  Ime         : " << ime << endl;
@@ -129,7 +129,7 @@ void NaselenоMyasto::pokazhiInfo() const {
 
     // preduprezhdenie ako ima nuzda ot poveche transport
     if (nuzhdaeSePoveche())
-        cout << "  >> NUZDA OT FINANSIRANE ZA TRANSPORT!" << endl;
+        cout << "  !! NUZDA OT FINANSIRANE ZA TRANSPORT!" << endl;
 }
 
 // bazovite versii na vzemTip i kamFailString — zamestvat se v naslednicite
