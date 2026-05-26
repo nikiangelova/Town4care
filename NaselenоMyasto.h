@@ -1,9 +1,9 @@
-#ifndef NASELENO_MYASTO_H   // ako NaselenоMyasto.h ne e vklyuchen predi, vklyuchi go
-#define NASELENO_MYASTO_H   // markiay, che veche e vklyuchen (pazi ot dvoino vklyuchvane)
+#ifndef NASELENO_MYASTO_H   
+#define NASELENO_MYASTO_H   
 
-#include <iostream>    // za cout (pechatane na ekrana)
-#include <string>      // za tipa string (tekst)
-using namespace std;   // za da pishem string vmesto std::string navsakade
+#include <iostream>    
+#include <string>      
+using namespace std;   
 
 // -------------------------------------------------------
 //  Bazov klas NaselenоMyasto (Naseleno myasto)
@@ -12,23 +12,23 @@ using namespace std;   // za da pishem string vmesto std::string navsakade
 // -------------------------------------------------------
 class NaselenоMyasto {
 
-protected:                          // protected = dostapno v naslednicite (Selo, GradMalak)
+protected:                          // protected = dostapno v naslednicite (Selo, GradMaluk)
     string ime;                    // ime na naselenoto myasto
-    int    naselenie;              // broi zhiteli
+    int    naselenie;              
     double byudzhet;                  // godishen byudzhet v leva
-    int    procentVazrastni;          // procent zhiteli nad 65 godini
+    int    procentVazrastni;          // procent zhiteli > 65 godini
     double razstoqnieDoGrad;          // razstoqnie do nai-blizkiq golyam grad (km)
     string naiBlizakGrad;             // ime na nai-blizkiq golyam grad
     int    broiLiniiBus;           // tekusht broi avtobusni linii
 
-public:                             // public = dostapno otvsqkade
+public:                             // public = dostupno otvsqkude
 
-    // Konstruktor: izvikva se pri sazdavane na obekt
+
     NaselenоMyasto(string ime, int naselenie, double byudzhet,
                int procentVazrastni, double razstoqnieDoGrad,
                string naiBlizakGrad, int broiLiniiBus);
 
-    // Getters: vrashtat stoinostite na polyata
+    //vrashtat stoinostite na polyata
     string vzemIme()           const;   // vrasha imeto
     int    vzemNaselenie()     const;   // vrasha broa zhiteli
     double vzemByudzhet()         const;   // vrasha byudzheta
