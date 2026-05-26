@@ -1,14 +1,14 @@
-#ifndef GRAD_MALAK_H    // zashtita ot dvoino vklyuchvane
+#ifndef GRAD_MALAK_H    
 #define GRAD_MALAK_H
 
 #include "NaselenоMyasto.h"   // GradMalak nasledqva NaselenоMyasto
 
-// -------------------------------------------------------
+
 //  Klas GradMalak (Malak grad)
 //  Nasledqva NaselenоMyasto i dobavya 2 specifichni poleta:
 //    - imaObshtina : dali ima obshtinska uprava
 //    - imaBolnica     : dali ima bolnica ili zdraven dom
-// -------------------------------------------------------
+
 class GradMalak : public NaselenоMyasto {   // "public NaselenоMyasto" = GradMalak e vid NaselenоMyasto
 
 private:
