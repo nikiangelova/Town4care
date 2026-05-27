@@ -1,38 +1,20 @@
-// -------------------------------------------------------
-//  Town4Care v2 — Mobilnost i dostap v malki naseleni mesta
-//  "Grizha za grada — ot chetiri gledni tochki."
-//  Ekip: [ime na ekipa]
-// -------------------------------------------------------
-
-#include <iostream>    // za cout, cin
-#include <fstream>     // za ofstream (zapis) i ifstream (chetene na fail)
-#include <sstream>     // za stringstream (razbivane na tekstov red po razdelitel)
-#include <string>      // za string
-#include <limits>      // za numeric_limits (izchistvane na vhodniq bufer)
-#include "Selo.h"   // vklyuchva Selo (i NaselenоMyasto.h vatre v nego)
-#include "GradMalak.h"      // vklyuchva GradMalak
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <limits>
+#include "Selo.h"
+#include "GradMalak.h"
 using namespace std;
 
-// -------------------------------------------------------
-//  Globalen masiv ot ukazateli kam NaselenоMyasto
-//  Mozhe da pazi obekti ot tip Selo ili GradMalak (polimorfizam).
-//  Maksimum 100 mesta — lesen masiv vmesto vector.
-// -------------------------------------------------------
-NaselenоMyasto* mesta[100];   // masiv ot ukazateli
-int broi = 0;                  // kolko mesta sa dobaveni dosega
+NaselenоMyasto* mesta[100];
+int broi = 0;
 
-// -------------------------------------------------------
-//  Pomoshni funkcii
-// -------------------------------------------------------
-
-// izchistya vhodniq bufer sled cin >> — predotvratqva "zalepvane" na Enter
 void izchistiVhod() {
-    cin.clear();                                          // nulira flagovete za greshka
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  // propuska do kraq na reda
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-// zadava vapros i ochakva y/n otgovor
-// vrasha true ako e 'y' ili 'Y', inache false
 bool pitaiDaNe(const string& vapros) {
     char otgovor;
     cout << vapros << " (y/n): ";
@@ -41,7 +23,6 @@ bool pitaiDaNe(const string& vapros) {
     return (otgovor == 'y' || otgovor == 'Y');
 }
 
-// pechat glavnoto menu
 void pokazhiMeniu() {
     cout << "\n  === GLAVNO MENU ===" << endl;
     cout << "  1. Dobavi selo" << endl;
@@ -56,26 +37,21 @@ void pokazhiMeniu() {
     cout << "  Izbor: ";
 }
 
-// -------------------------------------------------------
-//  Struktura za vremenno pazene na obshtite danni pri vavezhdane
-//  Izpolzva se v dobavqSelo() i dobavqGrad()
-// -------------------------------------------------------
 struct ObshtiDanni {
-    string ime, naiBlizakGrad;                          // tekstovi poleta
-    int    naselenie, procentVazrastni, liniiTemp;       // celochiselni
-    double byudzhet, razstoqnieDoGrad;                     // drobni chisla
+    string ime, naiBlizakGrad;
+    int    naselenie, procentVazrastni, liniiTemp;
+    double byudzhet, razstoqnieDoGrad;
 };
 
-// prochita ot konzolata obshtite danni za vsyako naseleno myasto
 ObshtiDanni prochetиObshtiDanni() {
-    ObshtiDanni danni;   // sazdava prazna struktura
+    ObshtiDanni danni;
 
     cout << "  Ime: ";
-    getline(cin, danni.ime);                   // getline chete cyal red myasto intervali
+    getline(cin, danni.ime);
 
     cout << "  Naselenie: ";
     cin >> danni.naselenie;
-    izchistiVhod();                           // izchistya bufera sled chisloto
+    izchistiVhod();
 
     cout << "  Godishen byudzhet (lv.): ";
     cin >> danni.byudzhet;
@@ -96,38 +72,31 @@ ObshtiDanni prochetиObshtiDanni() {
     cin >> danni.liniiTemp;
     izchistiVhod();
 
-    return danni;   // vrasha popalnenata struktura
+    return danni;
 }
 
-// -------------------------------------------------------
-//  Dobavyane na selo
-// -------------------------------------------------------
 void dobavqSelo() {
-    if (broi >= 100) {               // proverka dali masivat ne e palen
+    if (broi >= 100) {
         cout << "  Maksimalen broi mesta dostignat!" << endl;
         return;
     }
 
     cout << "\n  >> DOBAVYANE NA SELO" << endl;
-    ObshtiDanni danni = prochetиObshtiDanni();   // prochita obshtite danni
+    ObshtiDanni danni = prochetиObshtiDanni();
 
-    // zadava dopalnitelni vaprosi specificni za selo
     bool zemedelie   = pitaiDaNe("  Zemedelska deinost?");
     bool uchilishte = pitaiDaNe("  Ima li uchilishte?");
 
-    // sazdava nov Selo obekt v dinamichnata pamet (heap)
-    // new vrasha ukazatel, koito pazim v masiva
     mesta[broi] = new Selo(
         danni.ime, danni.naselenie, danni.byudzhet,
         danni.procentVazrastni, danni.razstoqnieDoGrad, danni.naiBlizakGrad, danni.liniiTemp,
         zemedelie, uchilishte
     );
-    broi++;   // uvelicava broyacha
+    broi++;
 
     cout << "\n  [OK] \"" << danni.ime << "\" dobaveno!" << endl;
 
-    // vednaga preduprezhdava ako e riskova zona
-    NaselenоMyasto* myasto = mesta[broi - 1];   // posled dobavenoto
+    NaselenоMyasto* myasto = mesta[broi - 1];
     if (myasto->eRiskovaZona())
         cout << "  [!] VNIMANIE: Riskova zona — "
              << myasto->vzemProcentVazrastni() << "% vazrastni!" << endl;
@@ -136,9 +105,6 @@ void dobavqSelo() {
              << " linii, preporachani " << myasto->preporachaniLinii() << endl;
 }
 
-// -------------------------------------------------------
-//  Dobavyane na malak grad
-// -------------------------------------------------------
 void dobavqGrad() {
     if (broi >= 100) {
         cout << "  Maksimalen broi mesta dostignat!" << endl;
@@ -151,7 +117,6 @@ void dobavqGrad() {
     bool obshtina  = pitaiDaNe("  Obshtinska uprava?");
     bool bolnica = pitaiDaNe("  Bolnica / zdraven dom?");
 
-    // sazdava nov GradMalak obekt
     mesta[broi] = new GradMalak(
         danni.ime, danni.naselenie, danni.byudzhet,
         danni.procentVazrastni, danni.razstoqnieDoGrad, danni.naiBlizakGrad, danni.liniiTemp,
@@ -170,12 +135,6 @@ void dobavqGrad() {
              << " linii, preporachani " << myasto->preporachaniLinii() << endl;
 }
 
-// -------------------------------------------------------
-//  Pokazva vsichki dobaveni mesta
-//  Chrez mesta[i]->pokazhiInfo() se vika virtualniqt metod —
-//  ako e Selo, se vika Selo::pokazhiInfo(); ako e GradMalak — GradMalak::pokazhiInfo()
-//  Tova e polimorfizam: edin i sasht red kod pravi razlichni neshta.
-// -------------------------------------------------------
 void pokazhiVsichki() {
     if (broi == 0) {
         cout << "\n  Nyama dobaveni mesta." << endl;
@@ -184,63 +143,51 @@ void pokazhiVsichki() {
     cout << "\n  Obshto: " << broi << " mesta" << endl;
     for (int i = 0; i < broi; i++) {
         cout << "\n  [" << i << "] ";
-        mesta[i]->pokazhiInfo();   // polimorfno izvikvane
+        mesta[i]->pokazhiInfo();
     }
 }
 
-// -------------------------------------------------------
-//  Obobshten analiz na mobilnostta za vsichki mesta
-//  Pechat tablica i obobshtena statistika.
-// -------------------------------------------------------
 void analiziziMobilnost() {
     if (broi == 0) {
         cout << "\n  Nyama danni." << endl;
         return;
     }
 
-    int broiRiskovi    = 0;   // broi riskovi zoni
-    int broiNuzhda = 0;   // broi mesta nuzhdaeshti se ot finansirane
-    double obshtoFinans = 0;   // obshto preporachano finansirane
+    int broiRiskovi    = 0;
+    int broiNuzhda = 0;
+    double obshtoFinans = 0;
 
     cout << "\n  === ANALIZ NA MOBILNOSTTA ===" << endl;
 
-    // obhozhdya vsichki mesta myasto cikyal
     for (int i = 0; i < broi; i++) {
-        NaselenоMyasto* myasto = mesta[i];   // sakrashenie za po-chetim kod
+        NaselenоMyasto* myasto = mesta[i];
 
-        // izchislqva deficita na linii
         int nedostig = myasto->preporachaniLinii() - myasto->vzemBroiLiniiBus();
         string statys = myasto->nuzhdaeSePoveche() ? "NUZDA!" : "OK";
 
-        // pechat red ot tablicata za vsyako myasto
         cout << "  " << myasto->vzemIme()
              << " | " << myasto->vzemProcentVazrastni() << "% vazr."
              << " | " << (int)myasto->vzemRazstoqnie() << " km"
              << " | " << myasto->vzemBroiLiniiBus() << "/" << myasto->preporachaniLinii() << " lin."
              << " | " << statys << endl;
 
-        // aktualizira statistikata
         if (myasto->eRiskovaZona())       broiRiskovi++;
         if (myasto->nuzhdaeSePoveche()) {
             broiNuzhda++;
-            obshtoFinans += nedostig * 15000.0;   // 15 000 lv. na linia na godina
+            obshtoFinans += nedostig * 15000.0;
         }
     }
 
-    // obobshtenie
     cout << "\n  Riskovi zoni             : " << broiRiskovi << endl;
     cout << "  Nuzhdaeshti se ot transport: " << broiNuzhda << endl;
     cout << "  Obshto finansirane         : " << obshtoFinans << " lv./god." << endl;
 }
 
-// -------------------------------------------------------
-//  Pokazva samo riskovite zoni (> 40% vazrastni)
-// -------------------------------------------------------
 void pokazhiRiskoviZoni() {
     cout << "\n  === RISKOVI ZONI ===" << endl;
     bool nameren = false;
     for (int i = 0; i < broi; i++) {
-        if (mesta[i]->eRiskovaZona()) {   // proverqva samo riskovite
+        if (mesta[i]->eRiskovaZona()) {
             cout << "\n  [" << i << "] ";
             mesta[i]->pokazhiInfo();
             nameren = true;
@@ -249,13 +196,9 @@ void pokazhiRiskoviZoni() {
     if (!nameren) cout << "\n  Nyama riskovi zoni." << endl;
 }
 
-// -------------------------------------------------------
-//  Detailen otchet za edno konkretno myasto (po indeks)
-// -------------------------------------------------------
 void detailenOtchet() {
     if (broi == 0) { cout << "\n  Nyama danni." << endl; return; }
 
-    // pokazva spisak za izbor
     cout << "\n  Mesta:" << endl;
     for (int i = 0; i < broi; i++)
         cout << "    [" << i << "] " << mesta[i]->vzemIme() << endl;
@@ -265,70 +208,58 @@ void detailenOtchet() {
     cin >> indeks;
     izchistiVhod();
 
-    // proverka za validen indeks
     if (indeks < 0 || indeks >= broi) {
         cout << "  Nevaliden indeks!" << endl;
         return;
     }
 
-    mesta[indeks]->otchetMobilnost();   // pechat detailniya otchet
+    mesta[indeks]->otchetMobilnost();
 }
 
-// -------------------------------------------------------
-//  Zapazva dannite v tekstov fail
-//  Vsyako naseleno myasto se zapisva na otdelen red.
-// -------------------------------------------------------
 void zapishibVFail() {
-    ofstream fail("town4care_data.txt");   // otvara fail za zapis
+    ofstream fail("town4care_data.txt");
     if (!fail.is_open()) {
         cout << "\n  Greshka pri zapis!" << endl;
         return;
     }
     for (int i = 0; i < broi; i++)
-        fail << mesta[i]->kamFailString() << "\n";   // zapisva vsyako myasto
+        fail << mesta[i]->kamFailString() << "\n";
 
-    fail.close();   // zatvara faila
+    fail.close();
     cout << "\n  [OK] Zapazeno (" << broi << " zapisa)" << endl;
 }
 
-// -------------------------------------------------------
-//  Zarezhda danni ot tekstov fail
-//  Razbiva vseki red po | i sazdava Selo ili GradMalak obekt.
-// -------------------------------------------------------
 void zaredіOtFail() {
-    ifstream fail("town4care_data.txt");   // otvara fail za chetene
+    ifstream fail("town4care_data.txt");
     if (!fail.is_open()) {
         cout << "\n  Failat ne e nameren." << endl;
         return;
     }
 
-    // izchistya starite danni ot pametta
     for (int i = 0; i < broi; i++) delete mesta[i];
     broi = 0;
 
     string red;
-    while (getline(fail, red)) {   // chete red po red
-        if (red.empty()) continue;   // preskača prazni redove
+    while (getline(fail, red)) {
+        if (red.empty()) continue;
 
-        stringstream potok(red);   // stringstream: pozvolqva chetene ot string kato ot cin
+        stringstream potok(red);
         string tip, ime, blizakGrad, pomSpom;
         int naselenieTemp, vazrastniTemp, liniiTemp;
         double byudzhet, razstoqnieTemp;
         bool flag1, flag2;
 
-        // razbiva reda po razdelitelya | i prisvoyava stoinostite
-        getline(potok, tip,    '|');   // chete do sledvashtoto |
+        getline(potok, tip,    '|');
         getline(potok, ime,    '|');
-        getline(potok, pomSpom,     '|');  naselenieTemp     = stoi(pomSpom);   // stoi: string -> int
-        getline(potok, pomSpom,     '|');  byudzhet  = stod(pomSpom);   // stod: string -> double
+        getline(potok, pomSpom,     '|');  naselenieTemp     = stoi(pomSpom);
+        getline(potok, pomSpom,     '|');  byudzhet  = stod(pomSpom);
         getline(potok, pomSpom,     '|');  vazrastniTemp = stoi(pomSpom);
         getline(potok, pomSpom,     '|');  razstoqnieTemp    = stod(pomSpom);
         getline(potok, blizakGrad,'|');
         getline(potok, pomSpom,     '|');  liniiTemp = stoi(pomSpom);
-        getline(potok, pomSpom,     '|');  flag1 = stoi(pomSpom);        // "0"/"1" -> bool
+        getline(potok, pomSpom,     '|');  flag1 = stoi(pomSpom);
         getline(potok, pomSpom      );     flag2 = stoi(pomSpom);
 
-        // sazdava praviliya tip obekt sprqmo zapisaniya tip
         if (tip == "VILLAGE")
             mesta[broi++] = new Selo(ime, naselenieTemp, byudzhet, vazrastniTemp, razstoqnieTemp, blizakGrad, liniiTemp, flag1, flag2);
         else if (tip == "TOWN")
@@ -339,13 +270,9 @@ void zaredіOtFail() {
     cout << "\n  [OK] Zaredeni " << broi << " zapisa." << endl;
 }
 
-// -------------------------------------------------------
-//  main — vhodna tochka na programata
-//  Pokazva menu i obrabotva izbora na potrebitelya v cikyal.
-// -------------------------------------------------------
 int main() {
     cout << "\n  ===============================" << endl;
-    cout << "       T O W N 4 C A R E  v2" << endl;
+    cout << "        T O W N 4 C A R E  v2" << endl;
     cout << "  Po-dobra mobilnost v Balgariya" << endl;
     cout << "  ===============================" << endl;
 
@@ -353,11 +280,9 @@ int main() {
     do {
         pokazhiMeniu();
 
-        // ako vhodat ne e chislo, izchistiVhod i probva otnovo
         if (!(cin >> izbor)) { izchistiVhod(); izbor = -1; continue; }
         izchistiVhod();
 
-        // switch: izpalnyava razlichen kod sprqmo izbora
         switch (izbor) {
             case 1: dobavqSelo();      break;
             case 2: dobavqGrad();         break;
@@ -373,10 +298,9 @@ int main() {
             default:
                 cout << "\n  Nevaliden izbor." << endl;
         }
-    } while (izbor != 0);   // cikalat produlzhava dokato ne izberem 0
+    } while (izbor != 0);
 
-    // osvobozhdava dinamichnata pamet (delete za vseki new)
     for (int i = 0; i < broi; i++) delete mesta[i];
 
-    return 0;   // 0 = programata zavarshy uspeshno
+    return 0;
 }
