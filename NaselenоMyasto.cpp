@@ -1,107 +1,109 @@
 #include <iostream>      
 #include <iomanip>       
-#include "NaselenоMyasto.h"  
+#include "NaselenoMyasto.h"  
+#define NOMINMAX
+#include <windows.h>
 using namespace std;
 
-NaselenоMyasto::NaselenоMyasto(string ime, int naselenie, double byudzhet,
-                       int procentVazrastni, double razstoqnieDoGrad,
-                       string naiBlizakGrad, int broiLiniiBus)
-    : ime(ime),                     
+NaselenoMyasto::NaselenoMyasto(string ime, int naselenie, double byudzhet,
+                       int procentVuzrastni, double razstoqnieDoGrad,
+                       string naiBlizukGrad, int broiLiniiBus)
+: ime(ime),                     
       naselenie(naselenie),         
       byudzhet(byudzhet),                 
-      procentVazrastni(procentVazrastni), 
+      procentVuzrastni(procentVuzrastni), 
       razstoqnieDoGrad(razstoqnieDoGrad), 
-      naiBlizakGrad(naiBlizakGrad),       
+      naiBlizukGrad(naiBlizukGrad),       
       broiLiniiBus(broiLiniiBus)    
 {}  
 
-string NaselenоMyasto::vzemIme()           const { return ime; }
-int    NaselenоMyasto::vzemNaselenie()     const { return naselenie; }
-double NaselenоMyasto::vzemByudzhet()         const { return byudzhet; }
-int    NaselenоMyasto::vzemProcentVazrastni() const { return procentVazrastni; }
-double NaselenоMyasto::vzemRazstoqnie() const { return razstoqnieDoGrad; }
-string NaselenоMyasto::vzemNaiBlizakGrad()    const { return naiBlizakGrad; }
-int    NaselenоMyasto::vzemBroiLiniiBus()  const { return broiLiniiBus; }
+string NaselenoMyasto::getIme() const { return ime; }
+int NaselenoMyasto::getNaselenie() const { return naselenie; }
+double NaselenoMyasto::getByudzhet() const { return byudzhet; }
+int NaselenoMyasto::getProcentVuzrastni() const { return procentVuzrastni; }
+double NaselenoMyasto::getRazstoqnie() const { return razstoqnieDoGrad; }
+string NaselenoMyasto::getNaiBlizukGrad() const { return naiBlizukGrad; }
+int NaselenoMyasto::getBroiLiniiBus() const { return broiLiniiBus; }
 
-bool NaselenоMyasto::eRiskovaZona() const {
-    return procentVazrastni > 40;   
+bool NaselenoMyasto::eRiskovaZona() const {
+    return procentVuzrastni > 40;   
 }
 
-int NaselenоMyasto::preporachaniLinii() const {
-    int preporachani = 1;                    
+int NaselenoMyasto::preporuchaniLinii() const {
+    int preporuchani = 1;                    
 
-    if (eRiskovaZona())       preporachani += 1;   
-    if (razstoqnieDoGrad > 30.0) preporachani += 1;   
-    if (razstoqnieDoGrad > 60.0) preporachani += 1;   
+    if (eRiskovaZona()) preporuchani += 1;   
+    if (razstoqnieDoGrad > 30.0) preporuchani += 1;   
+    if (razstoqnieDoGrad > 60.0) preporuchani += 1;   
 
-    return preporachani;   
+    return preporuchani;   
 }
 
-bool NaselenоMyasto::nuzhdaeSePoveche() const {
-    return broiLiniiBus < preporachaniLinii();   
+bool NaselenoMyasto::nuzhdaeSePoveche() const {
+    return broiLiniiBus < preporuchaniLinii();   
 }
 
-void NaselenоMyasto::otchetMobilnost() const {
-    int preporachani = preporachaniLinii();       
-    int nedostig     = preporachani - broiLiniiBus; 
+void NaselenoMyasto::otchetMobilnost() const {
+    int preporuchani = preporuchaniLinii();       
+    int nedostig     = preporuchani - broiLiniiBus; 
 
-    cout << "\n  --- OTCHET: " << ime << " ---" << endl;
+    cout << "\n Отчет: " << ime << endl;
 
-    cout << "  Vazrastni: " << procentVazrastni << "%";
+    cout << " Възрастни: " << procentVuzrastni << "%";
     if (eRiskovaZona())
-        cout << "  (!!! RISKOVA ZONA)" << endl;
+        cout << "  (!!! Рискова зона)" << endl;
     else
-        cout << "  (v norma)" << endl;
+        cout << "  (в норма)" << endl;
 
-    cout << "  Do " << naiBlizakGrad << ": " << razstoqnieDoGrad << " km" << endl;
+    cout << "  ДО " << naiBlizukGrad << ": " << razstoqnieDoGrad << " km" << endl;
     if (razstoqnieDoGrad > 60)
-        cout << "  >> Mnogo otdalechen — kriticna nuzda" << endl;
+        cout << "  >> Много отдалечен - в критична нужда" << endl;
     else if (razstoqnieDoGrad > 30)
-        cout << "  >> Otdalechen — povishena nuzda" << endl;
+        cout << "  >> Отдалечен - повишена нужда" << endl;
     else
-        cout << "  >> Blizo — bazova nuzda" << endl;
+        cout << "  >> Близо до голям град - транспортът е достатъчен" << endl;
 
-    cout << "  Tekushti linii   : " << broiLiniiBus << endl;
-    cout << "  Preporachitelni  : " << preporachani << endl;
+    cout << "  Текущи линии: " << broiLiniiBus << endl;
+    cout << "  Препоръчителни: " << preporuchani << endl;
 
     if (nuzhdaeSePoveche()) {
-        cout << "  STATUS: NEOBHODIMO FINANSIRANE" << endl;
-        cout << "  Deficit: " << nedostig << " linii" << endl;
+        cout << "  Статус: Необходимо финансиране!!!" << endl;
+        cout << "  Дефицит: " << nedostig << " линии" << endl;
 
-        double nuzhdaFinans = nedostig * 15000.0;
-        cout << "  Preporachano finansirane: " << nuzhdaFinans << " lv./god." << endl;
-        cout << "  >> Podaite zaqvlenie za subsidiq kam oblastnata uprava." << endl;
+        double nuzhdaFinans = nedostig * 7500.0;
+        cout << "  Препоръчително финансиране: " << nuzhdaFinans << " евро/год." << endl;
+        cout << "  >> Подайте заявление за субсидия към областна управа." << endl;
     } else {
-        cout << "  STATUS: TRANSPORTNOTO POKRITIE E DOBRO" << endl;
-        cout << "  Nyama nuzda ot dopalnitelno finansirane." << endl;
+        cout << "  Статус: Транспортното покритие е добро" << endl;
+        cout << "  Няма нужда от допълнително финансиране." << endl;
     }
 
     cout << "  ----------------------------" << endl;
 }
 
-void NaselenоMyasto::pokazhiInfo() const {
-    cout << "\n  Tip          : " << vzemTip() << endl;    
-    cout << "  Ime          : " << ime << endl;
-    cout << "  Naselenie    : " << naselenie << " zhiteli" << endl;
-    cout << "  Byudzhet     : " << byudzhet << " lv." << endl;
-    cout << "  Vazrastni    : " << procentVazrastni << "%"
-         << (eRiskovaZona() ? "  [!] RISKOVA ZONA" : "") << endl;
-    cout << "  Avt. linii  : " << broiLiniiBus
-         << " (preporachani: " << preporachaniLinii() << ")" << endl;
-    cout << "  Nai-blizak  : " << naiBlizakGrad << " — " << razstoqnieDoGrad << " km" << endl;
+void NaselenoMyasto::pokazhiInfo() const {
+    cout << "\n  Тип: " << getTip() << endl;    
+    cout << "  Име: " << ime << endl;
+    cout << "  Население: " << naselenie << " жители" << endl;
+    cout << "  Бюджет: " << byudzhet << " евро" << endl;
+    cout << "  Възрастни: " << procentVuzrastni << "%"
+         << (eRiskovaZona() ? "  [!] Рискова зона": "") << endl;
+    cout << "  Автобусни линии: " << broiLiniiBus
+         << " (препоръчителни: " << preporuchaniLinii() << ")" << endl;
+    cout << "  Най-близък: " << naiBlizukGrad << " - " << razstoqnieDoGrad << " км" << endl;
 
     if (nuzhdaeSePoveche())
-        cout << "  !! NUZDA OT FINANSIRANE ZA TRANSPORT!" << endl;
+        cout << "  >> Нужда от финансиране за транспорт!" << endl;
 }
 
-string NaselenоMyasto::vzemTip() const { return "Naseleno myasto"; }
+string NaselenoMyasto::getTip() const { return "Населено място"; }
 
-string NaselenоMyasto::kamFailString() const {
-    return "BASE|" + ime + "|" +
-           to_string(naselenie)     + "|" +   
-           to_string(byudzhet)         + "|" +
-           to_string(procentVazrastni) + "|" +
+string NaselenoMyasto::kumFailString() const {
+    return "Населено място|" + ime + "|" +
+           to_string(naselenie) + "|" +   
+           to_string(byudzhet) + "|" +
+           to_string(procentVuzrastni) + "|" +
            to_string(razstoqnieDoGrad) + "|" +
-           naiBlizakGrad               + "|" +
+           naiBlizukGrad + "|" +
            to_string(broiLiniiBus);
 }
