@@ -3,43 +3,45 @@
 
 #include <iostream>    
 #include <string>      
+#define NOMINMAX
+#include <windows.h>
 using namespace std;   
 
-class NaselenоMyasto {
+class NaselenoMyasto {
 
-protected:                                  
-    string ime;                            
-    int    naselenie;                      
-    double byudzhet;                          
-    int    procentVazrastni;                  
-    double razstoqnieDoGrad;                  
-    string naiBlizakGrad;                     
-    int    broiLiniiBus;                   
+protected:                          
+    string ime;                    
+    int naselenie;              
+    double byudzhet;                  
+    int procentVuzrastni;          
+    double razstoqnieDoGrad;          
+    string naiBlizukGrad;             
+    int broiLiniiBus;           
 
-public:                                     
+public:                             
 
-    NaselenоMyasto(string ime, int naselenie, double byudzhet,
-               int procentVazrastni, double razstoqnieDoGrad,
-               string naiBlizakGrad, int broiLiniiBus);
+    NaselenoMyasto(string ime, int naselenie, double byudzhet,
+               int procentVuzrastni, double razstoqnieDoGrad,
+               string naiBlizukGrad, int broiLiniiBus);
 
-    string vzemIme()           const;   
-    int    vzemNaselenie()     const;   
-    double vzemByudzhet()         const;   
-    int    vzemProcentVazrastni() const;   
-    double vzemRazstoqnie() const;   
-    string vzemNaiBlizakGrad()    const;   
-    int    vzemBroiLiniiBus()  const;   
+    string getIme() const;   
+    int getNaselenie() const;   
+    double getByudzhet() const;   
+    int getProcentVuzrastni() const;   
+    double getRazstoqnie() const;   
+    string getNaiBlizukGrad() const;   
+    int getBroiLiniiBus() const;   
 
-    bool eRiskovaZona()       const;  
-    int  preporachaniLinii() const;  
-    bool nuzhdaeSePoveche()  const;  
+    bool eRiskovaZona() const;  
+    int preporuchaniLinii() const;  
+    bool nuzhdaeSePoveche() const;  
     void otchetMobilnost() const;  
 
-    virtual void   pokazhiInfo()  const;   
-    virtual string vzemTip()      const;   
-    virtual string kamFailString() const;   
+    virtual void pokazhiInfo() const;   
+    virtual string getTip() const;   
+    virtual string kumFailString() const;   
 
-    virtual ~NaselenоMyasto() {}   
+    virtual ~NaselenoMyasto() {}   
 };
 
-#endif
+#endif   
