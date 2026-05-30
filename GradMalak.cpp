@@ -1,39 +1,41 @@
 #include <iostream>
-#include "GradMalak.h"
+#include "GradMaluk.h"
+#define NOMINMAX
+#include <windows.h>
 using namespace std;
 
-GradMalak::GradMalak(string ime, int naselenie, double byudzhet,
-           int procentVazrastni, double razstoqnieDoGrad,
-           string naiBlizakGrad, int broiLiniiBus,
+GradMaluk::GradMaluk(string ime, int naselenie, double byudzhet,
+           int procentVuzrastni, double razstoqnieDoGrad,
+           string naiBlizukGrad, int broiLiniiBus,
            bool imaObshtina, bool imaBolnica)
-    : NaselenоMyasto(ime, naselenie, byudzhet, procentVazrastni,
-                 razstoqnieDoGrad, naiBlizakGrad, broiLiniiBus),
-      imaObshtina(imaObshtina),
-      imaBolnica(imaBolnica)
+: NaselenoMyasto(ime, naselenie, byudzhet, procentVuzrastni,
+                 razstoqnieDoGrad, naiBlizukGrad, broiLiniiBus),  
+      imaObshtina(imaObshtina),   
+      imaBolnica(imaBolnica)            
 {}
 
-bool GradMalak::imaObshtinaMetod() const { return imaObshtina; }
-bool GradMalak::imaBolnicaMetod()     const { return imaBolnica; }
+bool GradMaluk::imaObshtinaMetod() const { return imaObshtina; }
+bool GradMaluk::imaBolnicaMetod() const { return imaBolnica; }
 
-void GradMalak::pokazhiInfo() const {
-    NaselenоMyasto::pokazhiInfo();
+void GradMaluk::pokazhiInfo() const {
+    NaselenoMyasto::pokazhiInfo();   
 
-    cout << "  --- MALAK GRAD specificno ---" << endl;
-    cout << "  Obshtinska uprava: " << (imaObshtina ? "Da" : "Ne") << endl;
-    cout << "  Bolnica          : " << (imaBolnica     ? "Da" : "Ne") << endl;
+    cout << "  --- Малък град (специфично) ---" << endl;
+    cout << "  Общинска управа: " << (imaObshtina ? "Да": "Не") << endl;
+    cout << "  Болница: " << (imaBolnica ? "Да": "Не") << endl;
 }
 
-string GradMalak::vzemTip() const { return "Malak grad"; }
+string GradMaluk::getTip() const { return "Малък град"; }
 
-string GradMalak::kamFailString() const {
-    return "TOWN|"                                 +
-           vzemIme()                               + "|" +
-           to_string(vzemNaselenie())      + "|" +
-           to_string(vzemByudzhet())          + "|" +
-           to_string(vzemProcentVazrastni())  + "|" +
-           to_string(vzemRazstoqnie())  + "|" +
-           vzemNaiBlizakGrad()                 + "|" +
-           to_string(vzemBroiLiniiBus())   + "|" +
-           to_string(imaObshtina)      + "|" +
+string GradMaluk::kumFailString() const {
+    return "Малък град|" +
+           getIme() + "|" +
+           to_string(getNaselenie()) + "|" +
+           to_string(getByudzhet()) + "|" +
+           to_string(getProcentVuzrastni()) + "|" +
+           to_string(getRazstoqnie()) + "|" +
+           getNaiBlizukGrad() + "|" +
+           to_string(getBroiLiniiBus()) + "|" +
+           to_string(imaObshtina) + "|" +   
            to_string(imaBolnica);
 }
