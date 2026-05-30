@@ -1,39 +1,41 @@
 #include <iostream>
-#include "Selo.h"
+#include "Selo.h"   
+#define NOMINMAX
+#include <windows.h>
 using namespace std;
 
 Selo::Selo(string ime, int naselenie, double byudzhet,
-                 int procentVazrastni, double razstoqnieDoGrad,
-                 string naiBlizakGrad, int broiLiniiBus,
-                 bool imaZemedelie, bool imaUchilishte)
-    : NaselenоMyasto(ime, naselenie, byudzhet, procentVazrastni,
-                 razstoqnieDoGrad, naiBlizakGrad, broiLiniiBus),
-      imaZemedelie(imaZemedelie),
-      imaUchilishte(imaUchilishte)
+           int procentVuzrastni, double razstoqnieDoGrad,
+           string naiBlizukGrad, int broiLiniiBus,
+           bool imaZemedelie, bool imaUchilishte)
+: NaselenoMyasto(ime, naselenie, byudzhet, procentVuzrastni,
+                 razstoqnieDoGrad, naiBlizukGrad, broiLiniiBus),  
+      imaZemedelie(imaZemedelie),    
+      imaUchilishte(imaUchilishte)       
 {}
 
-bool Selo::imaZemedelskaDeinos() const { return imaZemedelie; }
-bool Selo::imaUchilishteMetod()  const { return imaUchilishte; }
+bool Selo::ImaZemedelskaDeinost() const { return imaZemedelie; }
+bool Selo::imaUchilishteMetod() const { return imaUchilishte; }
 
 void Selo::pokazhiInfo() const {
-    NaselenоMyasto::pokazhiInfo();
+    NaselenoMyasto::pokazhiInfo();   
 
-    cout << "  --- SELO specificno ---" << endl;
-    cout << "  Zemedelie : " << (imaZemedelie ? "Da" : "Ne") << endl;
-    cout << "  Uchilishte: " << (imaUchilishte  ? "Da" : "Ne") << endl;
+    cout << "  --- Село(специфично) ---" << endl;
+    cout << " Земеделие: " << (imaZemedelie ? "Да": "Не") << endl;   
+    cout << " Училище: " << (imaUchilishte  ? "Да": "Не") << endl;
 }
 
-string Selo::vzemTip() const { return "Selo"; }
+string Selo::getTip() const { return "Село"; }
 
-string Selo::kamFailString() const {
-    return "VILLAGE|"                      +
-           vzemIme()                       + "|" +
-           to_string(vzemNaselenie())      + "|" +
-           to_string(vzemByudzhet())          + "|" +
-           to_string(vzemProcentVazrastni())  + "|" +
-           to_string(vzemRazstoqnie())  + "|" +
-           vzemNaiBlizakGrad()                + "|" +
-           to_string(vzemBroiLiniiBus())   + "|" +
-           to_string(imaZemedelie)            + "|" +
+string Selo::kumFailString() const {
+    return "Село|" +
+           getIme() + "|" +
+           to_string(getNaselenie()) + "|" +   
+           to_string(getByudzhet()) + "|" +   
+           to_string(getProcentVuzrastni()) + "|" +
+           to_string(getRazstoqnie()) + "|" +
+           getNaiBlizukGrad() + "|" +
+           to_string(getBroiLiniiBus()) + "|" +
+           to_string(imaZemedelie) + "|" +   
            to_string(imaUchilishte);
 }
