@@ -1,26 +1,29 @@
 #ifndef SELO_H    
 #define SELO_H
 
-#include "NaselenоMyasto.h" 
+#include "NaselenoMyasto.h"   
+#define NOMINMAX
+#include <windows.h>
 
-class Selo : public NaselenоMyasto {  
+class Selo: public NaselenoMyasto {   
 
-private:                   
+private:                    
     bool imaZemedelie;        
-    bool imaUchilishte;        
+    bool imaUchilishte;         
 
 public:
+    
     Selo(string ime, int naselenie, double byudzhet,
-            int procentVazrastni, double razstoqnieDoGrad,
-            string naiBlizakGrad, int broiLiniiBus,
-            bool imaZemedelie, bool imaUchilishte);
+         int procentVuzrastni, double razstoqnieDoGrad,
+         string naiBlizukGrad, int broiLiniiBus,
+         bool imaZemedelie, bool imaUchilishte);
 
-    bool imaZemedelskaDeinos() const;  
-    bool imaUchilishteMetod()  const; 
+    bool ImaZemedelskaDeinost() const;   
+    bool imaUchilishteMetod() const;   
 
-    void   pokazhiInfo()  const override; 
-    string vzemTip()      const override;   
-    string kamFailString() const override;  
+    void pokazhiInfo() const override;   
+    string getTip() const override;   
+    string kumFailString() const override;   
 };
 
 #endif
