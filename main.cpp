@@ -21,7 +21,7 @@ bool pitaiDaNe(const string& vupros) {
     cout << vupros << " (да/не): ";
     cin >> otgovor;
     izchistiVhod();
-    return (otgovor == 'да' || otgovor == 'Да');
+    return (otgovor == "да" || otgovor == "Да");
 }
 
 void pokazhiMenu() {
