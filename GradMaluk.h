@@ -3,9 +3,6 @@
 
 #include "NaselenoMyasto.h"   
 
-#define NOMINMAX
-#include <windows.h>
-
 class GradMaluk: public NaselenoMyasto {   
 
 private:
@@ -14,7 +11,7 @@ private:
 
 public:
     
-    GradMaluk(string ime, int naselenie, double byudzhet,
+    GradMaluk(const string& ime, int naselenie, double byudzhet,
          int procentVuzrastni, double razstoqnieDoGrad,
          string naiBlizukGrad, int broiLiniiBus,
          bool imaObshtina, bool imaBolnica);
