@@ -1,14 +1,20 @@
 
+#ifdef _WIN32
+#define NOMINMAX
+    #include <windows.h>
+#endif
 #include <iostream>    
 #include <fstream>     
 #include <sstream>     
 #include <string>      
-#include <limits>      
+#include <limits>
 #include "Selo.h"   
-#include "GradMaluk.h"      
+#include "GradMaluk.h"
+#include "NaselenoMyasto.h"
+
 using namespace std;
 
-NaselenoMyasto* mesta[100];   
+NaselenoMyasto* mesta[100];
 int broi = 0;                  
 
 void izchistiVhod() {
@@ -277,8 +283,10 @@ void zarediOtFail() {
 
 int main() {
 
+#ifdef _WIN32
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
+#endif
 
     cout << "\n  ===============================" << endl;
     cout << "       T O W N 4 C A R E  v2" << endl;
