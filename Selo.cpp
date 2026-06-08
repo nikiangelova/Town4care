@@ -1,14 +1,15 @@
 #include <iostream>
-#include "Selo.h"   
-#define NOMINMAX
-#include <windows.h>
+#include "Selo.h"
+#include "NaselenoMyasto.h"
+
+
 using namespace std;
 
-Selo::Selo(string ime, int naselenie, double byudzhet,
+Selo::Selo(const string& ime, int naselenie, double byudzhet,
            int procentVuzrastni, double razstoqnieDoGrad,
            string naiBlizukGrad, int broiLiniiBus,
            bool imaZemedelie, bool imaUchilishte)
-: NaselenoMyasto(ime, naselenie, byudzhet, procentVuzrastni,
+: NaselenoMyasto (ime, naselenie, byudzhet, procentVuzrastni,
                  razstoqnieDoGrad, naiBlizukGrad, broiLiniiBus),  
       imaZemedelie(imaZemedelie),    
       imaUchilishte(imaUchilishte)       
