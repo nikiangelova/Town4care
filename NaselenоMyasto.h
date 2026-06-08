@@ -3,8 +3,8 @@
 
 #include <iostream>    
 #include <string>      
-#define NOMINMAX
-#include <windows.h>
+
+
 using namespace std;   
 
 class NaselenoMyasto {
@@ -43,5 +43,7 @@ public:
 
     virtual ~NaselenoMyasto() {}   
 };
+
+#endif   
 
 #endif   
