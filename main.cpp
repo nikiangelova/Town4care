@@ -174,13 +174,13 @@ void analiziziMobilnost() {
         NaselenoMyasto* myasto = mesta[i];
 
         int nedostig = myasto->preporuchaniLinii() - myasto->getBroiLiniiBus();
-        string statys = myasto->nuzhdaeSePoveche() ? "Нужда!": "Ок";
+        string status = myasto->nuzhdaeSePoveche() ? "Нужда!": "Ок";
 
         cout << "  " << myasto->getIme()
              << " | " << myasto->getProcentVuzrastni() << "% възрастни"
              << " | " << (int)myasto->getRazstoqnie() << " км"
              << " | " << myasto->getBroiLiniiBus() << "/" << myasto->preporuchaniLinii() << " линии"
-             << " | " << statys << endl;
+             << " | " << status << endl;
 
         if (myasto->eRiskovaZona())broiRiskovi++;
         if (myasto->nuzhdaeSePoveche()) {
@@ -250,22 +250,23 @@ void zarediOtFail() {
     for (int i = 0; i < broi; i++) delete mesta[i];
     broi = 0;
 
-    string red;
-    while (getline(fail, red)) {
+    string red; // row
+    while (getline(fail, red)) { // файл
         if (red.empty()) continue;
 
         stringstream potok(red);
-        string tip, ime, BlizukGrad, pomSpom;
+        string tip, ime, BlizukGrad, pomSpom; //помощна променлива
         int naselenieTemp, vuzrastniTemp, liniiTemp;
         double byudzhet, razstoqnieTemp;
-        bool flag1, flag2;
+        bool flag1, flag2; //училище и земеделие //  община и болница
+    //Село|Баня|1200|50000|45|35|Пловдив|1|1|1
 
         getline(potok, tip, '|');
         getline(potok, ime, '|');
-        getline(potok, pomSpom, '|');  naselenieTemp = stoi(pomSpom);
+        getline(potok, pomSpom, '|');  naselenieTemp = stoi(pomSpom); // stoi - int
         getline(potok, pomSpom, '|');  byudzhet = stod(pomSpom);
         getline(potok, pomSpom, '|');  vuzrastniTemp = stoi(pomSpom);
-        getline(potok, pomSpom, '|');  razstoqnieTemp = stod(pomSpom);
+        getline(potok, pomSpom, '|');  razstoqnieTemp = stod(pomSpom); // stod - double
         getline(potok, BlizukGrad, '|');
         getline(potok, pomSpom, '|');  liniiTemp = stoi(pomSpom);
         getline(potok, pomSpom, '|');  flag1 = stoi(pomSpom);
