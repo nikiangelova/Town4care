@@ -289,7 +289,7 @@ int main() {
 #endif
 
     cout << "\n  ===============================" << endl;
-    cout << "       T O W N 4 C A R E  v2" << endl;
+    cout << "       T O W N 4 C A R E  " << endl;
     cout << "   По-добра мобилност в България" << endl;
     cout << "  ===============================" << endl;
 
