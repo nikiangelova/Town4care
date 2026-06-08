@@ -1,8 +1,8 @@
 #include <iostream>      
 #include <iomanip>       
 #include "NaselenoMyasto.h"  
-#define NOMINMAX
-#include <windows.h>
+
+
 using namespace std;
 
 NaselenoMyasto::NaselenoMyasto(string ime, int naselenie, double byudzhet,
