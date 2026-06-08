@@ -1,10 +1,10 @@
 #include <iostream>
 #include "GradMaluk.h"
-#define NOMINMAX
-#include <windows.h>
+
+
 using namespace std;
 
-GradMaluk::GradMaluk(string ime, int naselenie, double byudzhet,
+GradMaluk::GradMaluk(const string& ime, int naselenie, double byudzhet,
            int procentVuzrastni, double razstoqnieDoGrad,
            string naiBlizukGrad, int broiLiniiBus,
            bool imaObshtina, bool imaBolnica)
