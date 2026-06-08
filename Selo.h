@@ -2,8 +2,8 @@
 #define SELO_H
 
 #include "NaselenoMyasto.h"   
-#define NOMINMAX
-#include <windows.h>
+
+
 
 class Selo: public NaselenoMyasto {   
 
@@ -13,7 +13,7 @@ private:
 
 public:
     
-    Selo(string ime, int naselenie, double byudzhet,
+    Selo(const string& ime, int naselenie, double byudzhet,
          int procentVuzrastni, double razstoqnieDoGrad,
          string naiBlizukGrad, int broiLiniiBus,
          bool imaZemedelie, bool imaUchilishte);
